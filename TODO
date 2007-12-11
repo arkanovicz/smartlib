@@ -1,0 +1,6 @@
+ - B and W properties must not be mixed within a node.
+ - AB, AW and AE must have unique points, i.e. it is illegal to place different colors on the same point within one node.
+ - DM must not be mixed with UC, GB or GW within a node (and the same for others)
+ - CR, MA, SL, SQ and TR points must be unique, i.e. it's illegal to have two or more of these markups on the same point within a node.
+ - compression of EList when generating SGF back
+ - [tt] == pass when size <= 19

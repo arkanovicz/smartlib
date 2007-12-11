@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<project name="smartlib" default="compile" basedir=".">
+  
+  <!-- DIRECTORIES -->		
+  <property name="src.dir"           value="${basedir}/src"/>
+  <property name="build.dir" 	     value="${basedir}/tmp/classes"/>
+  <property name="lib.dir"           value="${basedir}/lib"/>
+
+  <!-- Build classpath automatically -->
+  <path id="classpath">
+    <fileset dir="./lib">
+      <include name="**/*.jar"/>
+    </fileset>
+<!--
+    <fileset dir="./extra">
+      <include name="**/*.jar"/>
+    </fileset>
+-->
+  </path>
+
+  <!-- PATTERN SETS -->
+  <patternset id="sources" >
+    <include name="**/*"/>
+  </patternset>
+
+<!-- targets section -->
+
+  <target name='compile'>
+    <javac srcdir="${src.dir}" destdir="${build.dir}" debug="on" debuglevel="lines,vars,source" encoding="ISO-8859-1" source="1.5" target="1.5" >
+	  <patternset refid="sources"/>
+      <classpath refid="classpath"/>
+	</javac>
+  </target>
+
+  <target name="jar" depends="compile">
+    <jar jarfile="${basedir}/smartlib.jar" basedir="${build.dir}" >
+	  <patternset refid="sources"/>
+	</jar>
+  </target>
+
+</project>
