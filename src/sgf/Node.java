@@ -6,11 +6,16 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.TreeMap;
+import java.util.Collection;
+
+import util.Logger;
 
 public class Node {
 
-    LinkedList<Node> children = null;
-    Map<String,Property> properties = new TreeMap<String,Property>();
+    protected LinkedList<Node> children = null;
+    protected Map<String,Property> properties = new TreeMap<String,Property>();
+
+//    private PropertyType nodeType = PropertyType.none;
 
     /**
      * empty node
@@ -25,6 +30,17 @@ public class Node {
             children = new LinkedList<Node>();
         }
         children.add(node);
+        node.setParent(this);
+    }
+
+    private Node parent = null;
+
+    private void setParent(Node parent) {
+        this.parent = parent;
+    }
+
+    private Node getParent() {
+        return parent;
     }
 
     public void addProperty(Property property)
@@ -38,17 +54,83 @@ public class Node {
 
     public String toString() {
         StringBuilder result = new StringBuilder();
+        if(getParent() == null) {
+            result.append('(');
+        }
         result.append(';');
         for(Property property:properties.values()) {
             result.append(property.toString());
         }
         if(children != null) {
-            result.append('(');
-            for(Node child:children) {
-                result.append(child.toString());
+            if(children.size() == 1) {
+                result.append(children.get(0).toString());
+            } else {
+                for(Node child:children) {
+                    result.append('(');
+                    result.append(child.toString());
+                    result.append(')');
+                }
             }
+        }
+        if(getParent() == null) {
             result.append(')');
         }
         return result.toString();
+    }
+
+    // TODO limiter la récursion, par ex chaîner pour un seul enfant
+    public void walkTree(NodeIntrospector introspector) throws IntrospectionException {
+        introspector.introspect(this);
+        if(children != null && children.size() > 0) {
+            for(Node child:children) {
+                introspector.down(this);
+                child.walkTree(introspector);
+                introspector.up(this);
+            }
+        }
+    }
+
+    public boolean hasProperty(String propId) {
+        return properties.containsKey(propId);
+    }
+
+    public Property getProperty(String propId) {
+        return properties.get(propId);
+    }
+
+/*
+    public  void postParse() {
+        // determines the type of the node...
+        for(Property property:properties.values()) {
+            if(property instanceof SetupProperty) {
+                if(nodeType != PropertyType.none && nodeType != PropertyType.setup) {
+                    Logger.warn("invalid SGF: mixing property types...");
+                }
+                nodeType = PropertyType.setup;
+            } else if (property instanceof RootProperty) {
+                if(nodeType != PropertyType.none && nodeType != PropertyType.root) {
+                    Logger.warn("invalid SGF: mixing property types...");
+                }
+                nodeType = PropertyType.root;
+            } else if (property instanceof MoveProperty) {
+                if(nodeType != PropertyType.none && nodeType != PropertyType.move) {
+                    Logger.warn("invalid SGF: mixing property types...");
+                }
+                nodeType = PropertyType.move;
+            }
+        }
+    }
+
+    public PropertyType getNodeType() {
+        return nodeType;
+    }
+*/
+
+    public Collection<Property> getProperties() {
+        return properties.values();
+    }
+
+    public int getChildrenCount() {
+        return children == null ? 0 : children.size();
     }
 }

@@ -25,10 +25,10 @@ public abstract class Property {
             }
             return (Property)clazz.newInstance();
         } catch(ClassNotFoundException cnfe) {
-            Logger.warn("unknown property: "+id);
+            Logger.warn("sgf parser: unknown property: "+id);
             return null;
         } catch(Exception e) {
-            Logger.warn("problem instanciating property "+id+":");
+            Logger.warn("sgf parser: problem instanciating property "+id+":");
             Logger.log(e);
             return null;
         }

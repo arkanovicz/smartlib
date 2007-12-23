@@ -1,7 +1,6 @@
 package sgf;
 
-import sgf.Collection;
-import sgf.Game;
+import sgf.GameCollection;
 import sgf.Node;
 import sgf.Property;
 import sgf.types.ValueType;
@@ -42,15 +41,11 @@ public class SGFParser {
         return gameType;
     }
 
-    public Collection parseSGF(String filename) throws IOException {
-        return parseSGF(new FileInputStream(filename));
-    }
-
-    public Collection parseSGF(File file) throws IOException {
+    public GameCollection parseSGF(File file) throws IOException {
         return parseSGF(new FileInputStream(file));
     }
 
-    public Collection parseSGF(InputStream sgf) throws IOException {
+    public GameCollection parseSGF(InputStream sgf) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(sgf));
         StringBuilder content = new StringBuilder();
         String line;
@@ -58,57 +53,132 @@ public class SGFParser {
             content.append(line);
             content.append('\n');
         }
-        return parseCollection(content.toString());
+        return parseSGF(content.toString());
     }
 
-    private Collection parseCollection(String content) {
-        Collection collection = new Collection();
+    public GameCollection parseSGF(String content) {
+        GameCollection collection = new GameCollection();
         TalkativeCharacterIterator iterator = new TalkativeCharacterIterator(content);
-        boolean inside = false;
         for(char c = iterator.first();c != CharacterIterator.DONE; c = iterator.next()) {
             if(c == '(') {
-                collection.add((Game)parseGameTree(iterator,new Game()));
+                collection.add((Node)parseGameTree(iterator));
             }
         }
         return collection;
     }
 
-    private Node parseGameTree(TalkativeCharacterIterator iterator, Node parent)
+    private Node parseGameTree(TalkativeCharacterIterator iterator)
     {
         int start = -1;
         int end = -1;
-        for(char c = iterator.first();c != CharacterIterator.DONE; c = iterator.next()) {
-            if(c == ';') {
-                if (start != -1) {
-                    end = iterator.getPosition();
-                    Node node = parseNode(iterator.getText().substring(start,end));
-                    if(node != null) {
-                        parent.addChild(node);
-                    }
-
+        int level = -1;
+        boolean insideValue = false;
+        boolean escaped = false;
+        Node first = null;
+        Node current = null;
+        for(char c = iterator.current();c != CharacterIterator.DONE; c = iterator.next()) {
+            if(escaped) {
+                escaped = false;
+                continue;
+            }
+            if(c == '\\') {
+                escaped = true;
+                continue;
+            }
+            if(insideValue) {
+                if (c == ']') {
+                    insideValue = false;
                 }
-                start = iterator.getPosition()+1;
+            } else if(c == '[') {
+                insideValue = true;
+            }
+            if(insideValue) continue;
+            if(c != ')' && c != '(' && level > 0 ) continue;
+            switch(c) {
+                case ';':
+                    if(start != -1) {
+                        end = iterator.getPosition();
+                        Node node = parseNode(iterator.getText().substring(start,end));
+                        if(node != null) {
+                            if(current != null) {
+                                current.addChild(node);
+                            }
+                            current = node;
+                            if(first == null) {
+                                first = node;
+                            }
+                        }
+                    }
+                    start = iterator.getPosition() + 1;
+                    break;
+                case '(':
+                    if(level == 0) {
+                        if(start != -1) {
+                            end = iterator.getPosition();
+                            Node node = parseNode(iterator.getText().substring(start,end));
+                            if(node != null) {
+                                if(current != null) {
+                                    current.addChild(node);
+                                }
+                                current = node;
+                                if(first == null) {
+                                    first = node;
+                                }
+                            }
+                        }
+                        start = iterator.getPosition();
+                    }
+                    level++;
+                    break;
+                case ')':
+                    level--;
+                    if(level == 0) {
+                        end = iterator.getPosition() + 1;
+                        Node node = parseGameTree(new TalkativeCharacterIterator(iterator.getText().substring(start,end)));
+                        if(current == null) {
+                            first = current = node;
+                        }
+                        else {
+                            current.addChild(node);
+                        }
+                        start = -1;
+                    } else if (level == -1) {
+                        if (start != -1) {
+                            end = iterator.getPosition();
+                            Node node = parseNode(iterator.getText().substring(start,end));
+                            if(node != null) {
+                                if(current != null) {
+                                    current.addChild(node);
+                                }
+                                current = node;
+                                if(first == null) {
+                                    first = node;
+                                }
+                            }
+                        }
+                        return first;
+                    }
             }
         }
-        return parent;
+        return first;
     }
 
-    private Pattern nodePattern = Pattern.compile("\\s*([a-zA-Z]{1,2})\\s*((?:\\[\\s*(?:(?:\\\\.)|[^\\]])*\\]\\s*)+)");
+    private Pattern nodePattern = Pattern.compile("\\s*([a-zA-Z]{1,2})\\s*((?:\\[\\s*(?:(?:\\\\.)|[^\\]\\\\])*\\]\\s*)+)");
 
     private Node parseNode(String text) {
         Node node = new Node();
         String id = null;
         Property property = null;
-Logger.debug("node: matching "+nodePattern.pattern()+" against "+ limit(text,300));
+//Logger.debug("node: matching "+nodePattern.pattern()+" against "+ limit(text,300));
         Matcher matcher = nodePattern.matcher(text);
         while(matcher.find()) {
-String dbg="  found prop: "+matcher.group()+" with "+matcher.groupCount()+" groups:";
-for(int i=1;i<=matcher.groupCount();i++)dbg+=" group #"+i+" = "+matcher.group(i);
-Logger.debug(dbg);
+//String dbg="  found prop: "+matcher.group()+" with "+matcher.groupCount()+" groups:";
+//for(int i=1;i<=matcher.groupCount();i++)dbg+=" group #"+i+" = "+matcher.group(i);
+//Logger.debug(dbg);
             id = matcher.group(1);
             property = Property.getInstance(id,gameType);
             if(property == null) {
-                Logger.warn("Property '"+id+"' not found (input was "+text);
+                Logger.warn("sgf parser: property '"+id+"' not found (input was "+text);
             } else {
                 if(parseValue(matcher.group(2),property)) {
                     node.addProperty(property);
@@ -123,13 +193,13 @@ Logger.debug(dbg);
         Pattern valuePattern = Pattern.compile("\\["+valueType.getPattern()+"\\]");
         Matcher matcher = valuePattern.matcher(value);
         boolean success = false;
-Logger.debug("property: matching "+valuePattern.pattern()+" against "+limit(value,80));
+//Logger.debug("property: matching "+valuePattern.pattern()+" against "+limit(value,80));
         while(matcher.find()) {
-String dbg="  found value: "+matcher.group()+" with "+matcher.groupCount()+" groups:";
-for(int i=1;i<=matcher.groupCount();i++)dbg+=" group #"+i+" = "+matcher.group(i);
-Logger.debug(dbg);            
+//String dbg="  found value: "+matcher.group()+" with "+matcher.groupCount()+" groups:";
+//for(int i=1;i<=matcher.groupCount();i++)dbg+=" group #"+i+" = "+matcher.group(i);
+//Logger.debug(dbg);            
             if(success && !(valueType instanceof ValueEList) && !(valueType instanceof ValueList)) {
-                Logger.warn("property "+target.getId()+": extra value ignored: "+matcher.group());
+                Logger.warn("sgf parser: property "+target.getId()+": extra value ignored: "+matcher.group());
             } else {
                 List<String> list = new ArrayList<String>();
                 for (int i=1;i<=matcher.groupCount();i++) {
@@ -142,7 +212,7 @@ Logger.debug(dbg);
             }
         }
         if(!success) {
-            Logger.warn("property "+target.getId()+": bad value: "+value);
+            Logger.warn("sgf parser: property "+target.getId()+": bad value: "+value);
         }
         return success;
     }
@@ -153,8 +223,8 @@ Logger.debug(dbg);
 //            Logger.log2Stderr();
             Logger.log2Stdout();
             Logger.setLogLevel(Logger.DEBUG_ID);
-            Collection collection = new SGFParser(GameType.Go).parseSGF(args[0]);
-            System.out.println("Collection="+collection);
+            GameCollection collection = new SGFParser(GameType.Go).parseSGF(new File(args[0]));
+            System.out.println("GameCollection="+collection);
         } catch(IOException ioe) {
             ioe.printStackTrace();
         }

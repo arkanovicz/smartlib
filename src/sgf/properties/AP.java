@@ -23,7 +23,12 @@ public class AP extends RootProperty {
     }
 
     public boolean addValue(List<String> value) {
-        if(value.size() != 2) return false;
+        if(value.size() == 1) {
+            application = ComposedSimpleText.unescape(value.get(0));
+            // a version number should be provided...
+            // return false!
+            return false;
+        } else if(value.size() != 2) return false;
         application = ComposedSimpleText.unescape(value.get(0));
         version = ComposedSimpleText.unescape(value.get(1));
         return true;
