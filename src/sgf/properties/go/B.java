@@ -27,6 +27,10 @@ public class B extends sgf.properties.B {
         if(value.size() > 1) return false;
         if (value.size() == 1) {
             move = new Move(GoUtils.parseCoord(value.get(0).charAt(0)),GoUtils.parseCoord(value.get(0).charAt(1)));
+            // TODO tt==pass only for 19x19 (?)
+            if(move.getCol()==20 && move.getRow()==20) {
+                move = GoValueTypes.PASS;
+            }
         } else {
             move = GoValueTypes.PASS;
         }

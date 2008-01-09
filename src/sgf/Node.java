@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.Collection;
+import java.io.PrintWriter;
 
 import util.Logger;
 
@@ -85,6 +86,31 @@ public class Node {
             for(Node child:children) {
                 introspector.down(this);
                 child.walkTree(introspector);
+                introspector.up(this);
+            }
+        }
+    }
+
+    public void walkTree(NodeIntrospector introspector,PrintWriter logger) throws IntrospectionException {
+        if(logger == null) {
+            walkTree(introspector);
+            return;
+        }
+        introspector.introspect(this);
+        if(children != null && children.size() > 0) {
+            for(Node child:children) {
+                introspector.down(this);
+                try {
+                    child.walkTree(introspector,logger);
+                } catch(IntrospectionException ie) {
+                    logger.println("child node truncated: "+ie.getClass().getName()+": "+ie.getMessage());
+                    Throwable t = ie.getCause();
+                    while (t != null) {
+                        logger.println("Caused by: "+t.getClass().getName()+": "+t.getMessage());
+                        t = t.getCause();
+                    }
+                    Logger.error(ie.getMessage());
+                }
                 introspector.up(this);
             }
         }

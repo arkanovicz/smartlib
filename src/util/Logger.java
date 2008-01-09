@@ -193,8 +193,8 @@ public class Logger
         lines++;
         // no more than 100 lines in asynchronous mode
         if (asyncLog != null && lines >asyncLimit) {
-            warn("More than "+asyncLimit+" lines in asynchronous logging mode...");
-            warn("Automatically switching to stderr");
+//            warn("More than "+asyncLimit+" lines in asynchronous logging mode...");
+//            warn("Automatically switching to stderr");
             log2Stderr();
             flushAsyncLog();
         }

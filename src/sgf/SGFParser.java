@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.CharacterIterator;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -35,6 +36,10 @@ public class SGFParser {
 
     public SGFParser(GameType type) {
         this.gameType = type;
+    }
+
+    public static void setLogger(PrintWriter pw) {
+        logger = pw;
     }
 
     public GameType getGameType() {
@@ -163,9 +168,9 @@ public class SGFParser {
         return first;
     }
 
-    private Pattern nodePattern = Pattern.compile("\\s*([a-zA-Z]{1,2})\\s*((?:\\[\\s*(?:(?:\\\\.)|[^\\]\\\\])*\\]\\s*)+)");
+    private Pattern nodePattern = Pattern.compile("\\s*([a-zA-Z]+)\\s*((?:\\[\\s*(?:(?:\\\\.)|[^\\]\\\\])*\\]\\s*)+)");
 
-    private Node parseNode(String text) {
+    private Node parseNode(String text) {        
         Node node = new Node();
         String id = null;
         Property property = null;
@@ -176,9 +181,20 @@ public class SGFParser {
 //for(int i=1;i<=matcher.groupCount();i++)dbg+=" group #"+i+" = "+matcher.group(i);
 //Logger.debug(dbg);
             id = matcher.group(1);
+            if(id.length() > 2) {
+                // Some SGF files contain properties like "VieW" for VW
+                String tmp = "";
+                for(int i=0;i<id.length();i++) {
+                    char c = id.charAt(i);
+                    if (Character.isUpperCase(c)) {
+                        tmp+=c;
+                    }
+                }
+                id = tmp;
+            }
             property = Property.getInstance(id,gameType);
             if(property == null) {
-                Logger.warn("sgf parser: property '"+id+"' not found (input was "+text);
+                warn("sgf parser: property '"+id+"' not found (input was \""+text+"\")");
             } else {
                 if(parseValue(matcher.group(2),property)) {
                     node.addProperty(property);
@@ -199,7 +215,7 @@ public class SGFParser {
 //for(int i=1;i<=matcher.groupCount();i++)dbg+=" group #"+i+" = "+matcher.group(i);
 //Logger.debug(dbg);            
             if(success && !(valueType instanceof ValueEList) && !(valueType instanceof ValueList)) {
-                Logger.warn("sgf parser: property "+target.getId()+": extra value ignored: "+matcher.group());
+                warn("sgf parser: property "+target.getId()+": extra value ignored: "+matcher.group());
             } else {
                 List<String> list = new ArrayList<String>();
                 for (int i=1;i<=matcher.groupCount();i++) {
@@ -212,7 +228,8 @@ public class SGFParser {
             }
         }
         if(!success) {
-            Logger.warn("sgf parser: property "+target.getId()+": bad value: "+value);
+            warn("sgf parser: property "+target.getId()+": bad value: "+value);
+
         }
         return success;
     }
@@ -238,4 +255,10 @@ public class SGFParser {
         }
     }
 
+    private static PrintWriter logger = null;
+
+    public static void warn(String msg) {
+        Logger.warn(msg);
+        logger.println("warning: "+msg);
+    }
 }
