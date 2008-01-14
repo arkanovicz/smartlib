@@ -7,6 +7,7 @@ package sgf.types;
  * Time: 01:44:31
  * To change this template use File | Settings | File Templates.
  */
+
 public class ValueEList<T extends ValueType> implements ValueType {
 
     private T component;
@@ -16,10 +17,10 @@ public class ValueEList<T extends ValueType> implements ValueType {
     }
 
     public String getPattern() {
-        if(component instanceof Point) {
-            return component.getPattern() + "(?:\\s*:\\s*"+component.getPattern()+")?";
+        if(component instanceof Point || component instanceof Stone) {
+            return "(?:" + component.getPattern() + "(?:\\s*:\\s*"+component.getPattern()+")?)?";
         } else {
-            return component.getPattern();
+            return "(?:"+component.getPattern()+")?";
         }
     }
 }

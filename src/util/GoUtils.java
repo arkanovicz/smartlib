@@ -31,6 +31,21 @@ public class GoUtils {
         return ch;
     }
 
+    public static boolean populatePoints(List<Point>list,String value,String value2) {
+        Point point = new Point(GoUtils.parseCoord(value.charAt(0)),GoUtils.parseCoord(value.charAt(1)));
+        if(value2 != null) {
+            Point p2 = new Point(GoUtils.parseCoord(value2.charAt(0)),GoUtils.parseCoord(value2.charAt(1)));
+            for(int col=point.getCol();col<=p2.getCol();col++) {
+                for(int row = point.getRow();row<=p2.getRow();row++) {
+                    list.add(new Point(col,row));
+                }
+            }
+        } else {
+            list.add(point);
+        }
+        return true;
+    }
+
     private static <T extends Point> T makeValue(Class<T> clazz,int col,int row) {
         try {
             T value = clazz.newInstance();

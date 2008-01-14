@@ -25,7 +25,8 @@ public abstract class Property {
             }
             return (Property)clazz.newInstance();
         } catch(ClassNotFoundException cnfe) {
-            SGFParser.warn("sgf parser: unknown property: "+id);
+// parent will log this one            
+//            SGFParser.warn("sgf parser: unknown property: "+id);
             return null;
         } catch(Exception e) {
             SGFParser.warn("sgf parser: problem instanciating property "+id+":");

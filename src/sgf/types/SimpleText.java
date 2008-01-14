@@ -5,7 +5,7 @@ package sgf.types;
 public class SimpleText implements ValueType {
 
     public String getPattern() {
-        return "((?:[^\\]\\\\]|(?:\\\\[\\]\\\\]))*)";
+        return "((?:[^\\]\\\\]|(?:\\\\.))*)";
     }
 
     public static String escape(String input) {

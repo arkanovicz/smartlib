@@ -29,10 +29,8 @@ public class MA extends sgf.properties.MA {
     }
 
     public boolean addValue(List<String> value) {
-        if(value.size() != 1) return false;
-        Point point = new Point(GoUtils.parseCoord(value.get(0).charAt(0)),GoUtils.parseCoord(value.get(0).charAt(1)));
-        points.add(point);
-        return true;
+        if(value.size() != 1 && value.size() != 2) return false;
+        return GoUtils.populatePoints(points,value.get(0),value.size() == 1 ? null : value.get(1));
     }
 
     public Object getSGFValue() {

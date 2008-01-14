@@ -40,6 +40,9 @@ public class SGFParser {
 
     public static void setLogger(PrintWriter pw) {
         logger = pw;
+Logger.setLogLevel(Logger.WARN_ID);
+Logger.log2Stderr();
+
     }
 
     public GameType getGameType() {
@@ -194,7 +197,7 @@ public class SGFParser {
             }
             property = Property.getInstance(id,gameType);
             if(property == null) {
-                warn("sgf parser: property '"+id+"' not found (input was \""+text+"\")");
+                warn("sgf parser: unknown property: '"+id+"' (with value \""+matcher.group(2)+"\")");
             } else {
                 if(parseValue(matcher.group(2),property)) {
                     node.addProperty(property);
@@ -207,6 +210,9 @@ public class SGFParser {
     private boolean parseValue(String value,Property target) {
         ValueType valueType = target.getValueType();
         Pattern valuePattern = Pattern.compile("\\["+valueType.getPattern()+"\\]");
+if(target.getId().equals("TR")){
+Logger.debug("@@@@ property "+target.getId()+": using pattern "+valuePattern+" for value"+value);
+}
         Matcher matcher = valuePattern.matcher(value);
         boolean success = false;
 //Logger.debug("property: matching "+valuePattern.pattern()+" against "+limit(value,80));
@@ -233,6 +239,8 @@ public class SGFParser {
         }
         return success;
     }
+
+    // TODO handle CA (character encoding) - pb - how?
 
     // testing
     public static void main(String args[]) {

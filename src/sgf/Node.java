@@ -104,12 +104,13 @@ public class Node {
                     child.walkTree(introspector,logger);
                 } catch(IntrospectionException ie) {
                     logger.println("child node truncated: "+ie.getClass().getName()+": "+ie.getMessage());
+Logger.error(ie.getMessage());
+Logger.log(ie);
                     Throwable t = ie.getCause();
                     while (t != null) {
                         logger.println("Caused by: "+t.getClass().getName()+": "+t.getMessage());
                         t = t.getCause();
                     }
-                    Logger.error(ie.getMessage());
                 }
                 introspector.up(this);
             }

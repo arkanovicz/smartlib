@@ -2,6 +2,9 @@ package sgf.properties.go;
 
 import sgf.types.ValueType;
 import sgf.types.ValueEList;
+import sgf.types.None;
+import sgf.types.ValueTypes;
+import sgf.types.Or;
 import sgf.types.go.GoValueTypes;
 import sgf.types.go.Point;
 
@@ -22,14 +25,15 @@ public class VW extends sgf.properties.VW {
 
     private List<Point> points = new ArrayList<Point>();
 
-    private static ValueType valueType = new ValueEList<Point>(GoValueTypes.POINT);
+    private static ValueType valueType = new Or<None,ValueEList<Point>>(ValueTypes.NONE,new ValueEList<Point>(GoValueTypes.POINT));
 
     public ValueType getValueType() {
         return valueType;
     }
 
     public boolean addValue(List<String> value) {
-        return GoUtils.addEListValue(value,points,Point.class);
+        // TODO the left test shouldn't be needed anymore
+        return value.size() == 0 || GoUtils.addEListValue(value,points,Point.class);
     }
 
     public Object getSGFValue() {

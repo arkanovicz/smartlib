@@ -16,6 +16,10 @@ public class ValueList<T extends ValueType> implements ValueType {
     }
 
     public String getPattern() {
-        return component.getPattern();
+        if(component instanceof Point || component instanceof Stone) {
+            return  component.getPattern() + "(?:\\s*:\\s*"+component.getPattern()+")?";
+        } else {
+            return component.getPattern();
+        }
     }
 }
