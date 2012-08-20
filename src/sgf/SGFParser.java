@@ -171,48 +171,116 @@ Logger.log2Stderr();
         return first;
     }
 
-    private Pattern nodePattern = Pattern.compile("\\s*([a-zA-Z]+)\\s*((?:\\[\\s*(?:(?:\\\\.)|[^\\]\\\\])*\\]\\s*)+)");
+//    private Pattern nodePattern = Pattern.compile("\\s*([a-zA-Z]+)\\s*((?:\\[\\s*(?:(?:\\\\.)|[^\\]\\\\])*\\]\\s*)+)");
+//    private Pattern nodePattern = Pattern.compile("\\s*  ([a-zA-Z]+) \\s* (  (?:  \\[\\s*  (?:  \\\\. | [^\\]\\\\]  )*  \\]\\s*  )+  )  ");
+//                                                                          v  s             c                        c            s   v
 
-    private Node parseNode(String text) {        
+  private void addProperty(Node node, String id, String value)
+  {
+    if(id.length() > 2)
+    {
+      // Some SGF files contain properties like "VieW" for VW
+      String tmp = "";
+      for(int i=0;i<id.length();i++) {
+        char ch = id.charAt(i);
+        if (Character.isUpperCase(ch)) {
+          tmp+=ch;
+        }
+      }
+      id = tmp;
+    }
+    Property property = Property.getInstance(id,gameType);
+    if(property == null)
+    {
+      warn("sgf parser: unknown property: '"+id+"' (with value \""+value+"\")");
+    }
+    else
+    {
+      if(parseValue(value,property))
+      {
+        node.addProperty(property);
+      }
+    }
+  }
+
+    private Node parseNode(String text) {
         Node node = new Node();
         String id = null;
-        Property property = null;
-//Logger.debug("node: matching "+nodePattern.pattern()+" against "+ limit(text,300));
+//Logger.debug("node: parsing "+ limit(text,300));
+
+        TalkativeCharacterIterator iterator = new TalkativeCharacterIterator(text);
+        boolean insideBrackets = false;
+        boolean escaped = false;
+        id = "";
+        String value = "";
+        for(char c = iterator.current();c != CharacterIterator.DONE; c = iterator.next())
+        {
+          if(insideBrackets)
+          {
+            if(escaped)
+            {
+              value += c;
+              escaped = false;
+            }
+            else if (c == '\\')
+            {
+              escaped = true;
+            }
+            else
+            {
+              value += c;
+              if(c == ']')
+              {
+                insideBrackets = false;
+              }
+            }
+          }
+          else
+          {
+            if(c<=' ') continue;
+            else if (c=='[')
+            {
+              value += c;
+              insideBrackets = true;
+            }
+            else
+            {
+              if(value.length() > 0)
+              {
+//Logger.debug("  found prop: "+id+" with value "+value);
+                addProperty(node,id,value);
+                id = "";
+                value = "";
+              }
+              id += c;
+            }
+          }
+        }
+
+        if(value.length() > 0)
+        {
+//Logger.debug("  found prop: "+id+" with value "+value);
+          addProperty(node,id,value);
+        }
+
+/*
         Matcher matcher = nodePattern.matcher(text);
         while(matcher.find()) {
-//String dbg="  found prop: "+matcher.group()+" with "+matcher.groupCount()+" groups:";
-//for(int i=1;i<=matcher.groupCount();i++)dbg+=" group #"+i+" = "+matcher.group(i);
-//Logger.debug(dbg);
+String dbg="  found prop: "+matcher.group()+" with "+matcher.groupCount()+" groups:";
+for(int i=1;i<=matcher.groupCount();i++)dbg+=" group #"+i+" = "+matcher.group(i);
+Logger.debug(dbg);
             id = matcher.group(1);
-            if(id.length() > 2) {
-                // Some SGF files contain properties like "VieW" for VW
-                String tmp = "";
-                for(int i=0;i<id.length();i++) {
-                    char c = id.charAt(i);
-                    if (Character.isUpperCase(c)) {
-                        tmp+=c;
-                    }
-                }
-                id = tmp;
-            }
-            property = Property.getInstance(id,gameType);
-            if(property == null) {
-                warn("sgf parser: unknown property: '"+id+"' (with value \""+matcher.group(2)+"\")");
-            } else {
-                if(parseValue(matcher.group(2),property)) {
-                    node.addProperty(property);
-                }
-            }
         }
+*/
         return node;
     }
 
     private boolean parseValue(String value,Property target) {
         ValueType valueType = target.getValueType();
         Pattern valuePattern = Pattern.compile("\\["+valueType.getPattern()+"\\]");
-if(target.getId().equals("TR")){
-Logger.debug("@@@@ property "+target.getId()+": using pattern "+valuePattern+" for value"+value);
-}
+//if(target.getId().equals("TR")){
+//Logger.debug("@@@@ property "+target.getId()+": using pattern "+valuePattern+" for value"+value);
+//}
         Matcher matcher = valuePattern.matcher(value);
         boolean success = false;
 //Logger.debug("property: matching "+valuePattern.pattern()+" against "+limit(value,80));

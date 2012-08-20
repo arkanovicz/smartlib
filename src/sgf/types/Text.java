@@ -7,7 +7,7 @@ import util.Logger;
 public class Text implements ValueType {
 
     public String getPattern() {
-        return "((?:[^\\]\\\\]|(?:\\\\.))*)";
+        return "((?>\\\\.|[^\\]\\\\])*)";
     }
 
     public static String escape(String input) {
