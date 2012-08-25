@@ -1,13 +1,9 @@
 package sgf.properties;
 
-import sgf.Property;
+import sgf.MarkupProperty;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 13:34:17
- * To change this template use File | Settings | File Templates.
+ * Dim (grey out) the given points.
  */
-public abstract class DD extends Property {
+public abstract class DD extends MarkupProperty {
 }

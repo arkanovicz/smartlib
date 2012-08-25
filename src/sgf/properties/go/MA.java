@@ -12,11 +12,7 @@ import util.GoUtils;
 import util.Lists;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 13:21:45
- * To change this template use File | Settings | File Templates.
+ * Marks the given points with an 'X'.
  */
 public class MA extends sgf.properties.MA {
 

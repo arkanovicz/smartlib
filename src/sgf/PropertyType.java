@@ -13,5 +13,8 @@ public enum PropertyType {
     move,
     none,
     root,
-    setup;
+    setup,
+    annotation,
+    markup,
+    timing;
 }

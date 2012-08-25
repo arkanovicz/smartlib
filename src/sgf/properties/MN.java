@@ -7,11 +7,7 @@ import sgf.types.ValueTypes;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 9 déc. 2007
- * Time: 13:33:15
- * To change this template use File | Settings | File Templates.
+ * Sets the move number to the given value.
  */
 public class MN extends MoveProperty {
 

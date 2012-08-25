@@ -14,11 +14,7 @@ import util.GoUtils;
 import util.Lists;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 13:11:21
- * To change this template use File | Settings | File Templates.
+ * Simple line form one point to the other.
  */
 public class LN extends sgf.properties.LN {
 

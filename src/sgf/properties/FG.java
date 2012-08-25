@@ -1,18 +1,16 @@
 package sgf.properties;
 
-import sgf.Property;
+import sgf.SetupProperty;
 import sgf.types.*;
 
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 17:01:35
- * To change this template use File | Settings | File Templates.
+ * The figure property is used to divide a game into
+ * different figures for printing: a new figure starts at the
+ * node containing a figure property.
  */
-public class FG extends Property {
+public class FG extends SetupProperty {
 
     private static ValueType valueType = new Or<None, Compose<sgf.types.Number, ComposedSimpleText>>(ValueTypes.NONE,new Compose<sgf.types.Number, ComposedSimpleText>(ValueTypes.NUMBER,ValueTypes.COMPOSED_SIMPLE_TEXT));
 

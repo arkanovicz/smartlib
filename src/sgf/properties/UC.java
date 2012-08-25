@@ -1,19 +1,15 @@
 package sgf.properties;
 
-import sgf.Property;
+import sgf.AnnotationProperty;
 import sgf.types.ValueType;
 import sgf.types.ValueTypes;
 
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 12:53:47
- * To change this template use File | Settings | File Templates.
+ * The position is unclear.
  */
-public class UC extends Property {
+public class UC extends AnnotationProperty {
 
     private int emphasis = 0;
 

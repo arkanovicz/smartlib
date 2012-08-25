@@ -1,19 +1,16 @@
 package sgf.properties;
 
-import sgf.Property;
+import sgf.AnnotationProperty;
 import sgf.types.ValueType;
 import sgf.types.ValueTypes;
 
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 13:03:55
- * To change this template use File | Settings | File Templates.
+ * Define a value for the node.  Positive values are good for
+ * black, negative values are good for white.
  */
-public class V extends Property {
+public class V extends AnnotationProperty {
 
     private double value = 0;
 

@@ -36,11 +36,11 @@ public class Node {
 
     private Node parent = null;
 
-    private void setParent(Node parent) {
+    public void setParent(Node parent) {
         this.parent = parent;
     }
 
-    private Node getParent() {
+    public Node getParent() {
         return parent;
     }
 
@@ -160,4 +160,10 @@ Logger.log(ie);
     public int getChildrenCount() {
         return children == null ? 0 : children.size();
     }
+
+  public Node getChild(int index)
+  {
+    return children.get(index);
+  }
+  
 }

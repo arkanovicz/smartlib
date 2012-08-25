@@ -1,18 +1,18 @@
 package sgf.properties;
 
-import sgf.SetupProperty;
+import sgf.RootProperty;
 import sgf.types.*;
 
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 16:02:21
- * To change this template use File | Settings | File Templates.
+ * Defines the size of the board. If only a single value
+ * is given, the board is a square; with two numbers given,
+ * rectangular boards are possible.
+ * If a rectangular board is specified, the first number specifies
+ * the number of columns, the second provides the number of rows.
  */
-public class SZ extends SetupProperty {
+public class SZ extends RootProperty {
 
     private static ValueType valueType = new Or<sgf.types.Number,Compose<sgf.types.Number, sgf.types.Number>>(ValueTypes.NUMBER,new Compose<sgf.types.Number,sgf.types.Number>(ValueTypes.NUMBER,ValueTypes.NUMBER));
 

@@ -1,6 +1,6 @@
 package sgf.properties;
 
-import sgf.SetupProperty;
+import sgf.RootProperty;
 import sgf.GameType;
 import sgf.types.ValueType;
 import sgf.types.ValueTypes;
@@ -8,13 +8,10 @@ import sgf.types.ValueTypes;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 15:35:40
- * To change this template use File | Settings | File Templates.
+ * Defines the type of game, which is stored in the current
+ * gametree.
  */
-public class GM extends SetupProperty {
+public class GM extends RootProperty {
 
     private GameType gameType = null;
 

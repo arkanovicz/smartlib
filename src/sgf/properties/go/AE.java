@@ -12,11 +12,7 @@ import util.GoUtils;
 import util.Lists;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 11:48:29
- * To change this template use File | Settings | File Templates.
+ * Clear the given points on the board.
  */
 public class AE extends sgf.properties.AE {
 

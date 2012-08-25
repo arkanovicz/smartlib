@@ -1,6 +1,6 @@
 package sgf.properties;
 
-import sgf.Property;
+import sgf.AnnotationProperty;
 import sgf.types.ValueType;
 import sgf.types.ValueTypes;
 import sgf.types.Text;
@@ -8,13 +8,9 @@ import sgf.types.Text;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 12:44:24
- * To change this template use File | Settings | File Templates.
+ * Provides a comment text for the given node.
  */
-public class C extends Property {
+public class C extends AnnotationProperty {
 
     private String text = null;
 

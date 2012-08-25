@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 
 <project name="smartlib" default="compile" basedir=".">
+
+  <property name="project"           value="smartlib"/>
+  <property name="version"           value="0.1"/>
   
   <!-- DIRECTORIES -->		
   <property name="src.dir"           value="${basedir}/src"/>
   <property name="build.dir" 	     value="${basedir}/tmp/classes"/>
   <property name="lib.dir"           value="${basedir}/lib"/>
+  <property name="javadoc.destdir"   value="${basedir}/javadoc"/>
 
   <!-- Build classpath automatically -->
   <path id="classpath">
@@ -27,7 +31,7 @@
 <!-- targets section -->
 
   <target name='compile'>
-    <javac srcdir="${src.dir}" destdir="${build.dir}" debug="on" debuglevel="lines,vars,source" encoding="ISO-8859-1" source="1.5" target="1.5" >
+    <javac srcdir="${src.dir}" destdir="${build.dir}" debug="on" debuglevel="lines,vars,source" encoding="ISO-8859-1">
 	  <patternset refid="sources"/>
       <classpath refid="classpath"/>
 	</javac>
@@ -38,5 +42,48 @@
 	  <patternset refid="sources"/>
 	</jar>
   </target>
+
+  <target name="javadoc" depends="compile" description="- build javadoc files">
+
+    <property name="javadoc.breakiterator" value="" />  <mkdir dir="${javadoc.destdir}"/>
+    <condition property="javadoc.breakiterator" value="-breakiterator" >
+      <or>
+        <equals arg1="${ant.java.version}" arg2="1.4" />
+        <equals arg1="${ant.java.version}" arg2="1.5" />
+      </or>
+    </condition>
+
+    <property name="javadoc.jdk.href" value="" />
+    <property name="javadoc.jdk.offline" value="false" />
+    <property name="javadoc.jdk.packaglistLoc" value="" />
+    <condition property="javadoc.jdk.href" value="http://java.sun.com/products/jdk/1.2/docs/api/">
+      <equals arg1="${ant.java.version}" arg2="1.2" />
+    </condition>
+    <condition property="javadoc.jdk.href" value="http://java.sun.com/j2se/1.3/docs/api/">
+      <equals arg1="${ant.java.version}" arg2="1.3" />
+    </condition>
+    <condition property="javadoc.jdk.href" value="http://java.sun.com/j2se/1.4/docs/api/">
+      <equals arg1="${ant.zojava.version}" arg2="1.4" />
+    </condition>
+    <condition property="javadoc.jdk.href" value="http://java.sun.com/j2se/1.5/docs/api/">
+      <equals arg1="${ant.java.version}" arg2="1.5" />
+    </condition>
+
+    <javadoc
+      sourcepath="${src.dir}"
+      packagenames="*"
+      destdir="${javadoc.destdir}"
+      author="true"
+      private="true"
+      version="true"
+      use="true"
+          additionalparam="${javadoc.breakiterator}"
+      windowtitle="${project} ${version} API"
+      doctitle="${project} ${version} API">
+      <link offline="${javadoc.jdk.offline}" href="${javadoc.jdk.href}" packagelistLoc="${javadoc.jdk.packagelistLoc}" />
+      <bottom><![CDATA[<div align='center'>~ooOoo~</div>]]></bottom>
+      <classpath refid="classpath"/>
+      </javadoc>
+    </target>
 
 </project>

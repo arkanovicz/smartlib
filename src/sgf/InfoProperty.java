@@ -9,7 +9,7 @@ package sgf;
  */
 public abstract class InfoProperty extends Property {
 
-    public PropertyType getType() {
+    public PropertyType getPropertyType() {
         return PropertyType.info;
     }
 }

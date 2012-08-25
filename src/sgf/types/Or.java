@@ -18,7 +18,16 @@ public class Or<L extends ValueType,R extends ValueType> implements ValueType {
     }
 
     public String getPattern() {
-        return "(?:"+left.getPattern()+")|(?:"+right.getPattern()+")";
+      String leftPattern = left.getPattern();
+      String rightPattern = right.getPattern();
+      if(leftPattern.length() > 0)
+      {
+        return "(?:"+leftPattern+")|(?:"+rightPattern+")";
+      }
+      else
+      {
+        return "(?:"+rightPattern+")?";
+      }
     }
 
 }

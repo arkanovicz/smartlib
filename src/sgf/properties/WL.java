@@ -1,19 +1,15 @@
 package sgf.properties;
 
-import sgf.MoveProperty;
+import sgf.TimingProperty;
 import sgf.types.ValueType;
 import sgf.types.ValueTypes;
 
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 16:56:33
- * To change this template use File | Settings | File Templates.
+ * Time left for white after the move was made.
  */
-public class WL extends MoveProperty {
+public class WL extends TimingProperty {
 
     double seconds = 0;
 

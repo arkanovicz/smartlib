@@ -14,11 +14,7 @@ import util.GoUtils;
 import util.Lists;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 13:11:21
- * To change this template use File | Settings | File Templates.
+ * Arrow pointing FROM the first point TO the second point.
  */
 public class AR extends sgf.properties.AR {
 

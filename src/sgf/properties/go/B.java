@@ -9,11 +9,7 @@ import java.util.List;
 import util.GoUtils;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 9 déc. 2007
- * Time: 12:17:15
- * To change this template use File | Settings | File Templates.
+ * Execute a black move
  */
 public class B extends sgf.properties.B {
 

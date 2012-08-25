@@ -44,9 +44,7 @@ public abstract class Property {
         return id;
     }
 
-    public PropertyType getPropertyType() {
-        return PropertyType.none;
-    }
+    public abstract PropertyType getPropertyType();
 
     public abstract ValueType getValueType();
 

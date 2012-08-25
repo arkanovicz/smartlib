@@ -12,11 +12,7 @@ import util.GoUtils;
 import util.Lists;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 02:15:43
- * To change this template use File | Settings | File Templates.
+ * Add white stones to the board.
  */
 public class AW extends sgf.properties.AW {
 

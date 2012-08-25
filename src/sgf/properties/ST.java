@@ -1,19 +1,19 @@
 package sgf.properties;
 
-import sgf.SetupProperty;
+import sgf.RootProperty;
 import sgf.types.ValueType;
 import sgf.types.ValueTypes;
 
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 15:35:40
- * To change this template use File | Settings | File Templates.
+ * Defines how variations should be shown. Binary mask:
+ * <ul>
+ * <li>0 / 1: show variations of successor node (children) / show variations of current node (sibling)</li>
+ * <li>0 / 2: do board markup / no (auto-) board markup</li>
+ * </ul>
  */
-public class ST extends SetupProperty {
+public class ST extends RootProperty {
 
     private int mode = 0;
 

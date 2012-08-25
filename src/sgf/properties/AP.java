@@ -9,6 +9,8 @@ import sgf.types.ComposedSimpleText;
 import java.util.List;
 
 /**
+ * Provides the name and version number of the application used
+ * to create this gametree.
  */
 
 public class AP extends RootProperty {

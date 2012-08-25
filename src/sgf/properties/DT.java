@@ -8,11 +8,8 @@ import sgf.types.SimpleText;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 16:39:28
- * To change this template use File | Settings | File Templates.
+ * Provides the date when the game was played.
+ * 
  */
 public class DT extends InfoProperty {
 

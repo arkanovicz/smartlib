@@ -1,13 +1,9 @@
 package sgf.properties;
 
-import sgf.Property;
+import sgf.MarkupProperty;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 13:10:54
- * To change this template use File | Settings | File Templates.
+ * Arrow pointing FROM the first point TO the second point.
  */
-public abstract class AR extends Property {
+public abstract class AR extends MarkupProperty {
 }

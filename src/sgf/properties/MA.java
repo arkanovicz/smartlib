@@ -1,13 +1,9 @@
 package sgf.properties;
 
-import sgf.Property;
+import sgf.MarkupProperty;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 15:26:40
- * To change this template use File | Settings | File Templates.
+ * Marks the given points with an 'X'.
  */
-public abstract class MA extends Property {
+public abstract class MA extends MarkupProperty {
 }

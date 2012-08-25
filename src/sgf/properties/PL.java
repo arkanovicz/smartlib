@@ -8,11 +8,7 @@ import sgf.types.ValueTypes;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 12:15:20
- * To change this template use File | Settings | File Templates.
+ * Tell whose turn it is to play.
  */
 public class PL extends SetupProperty {
 

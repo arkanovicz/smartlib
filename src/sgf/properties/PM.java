@@ -7,11 +7,7 @@ import sgf.types.ValueTypes;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 17:08:12
- * To change this template use File | Settings | File Templates.
+ * Specifies how move numbers should be printed.
  */
 public class PM extends InheritProperty {
 

@@ -7,11 +7,7 @@ import sgf.types.ValueTypes;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 16:39:28
- * To change this template use File | Settings | File Templates.
+ * Provides the time limits of the game.
  */
 public class TM extends InfoProperty {
 

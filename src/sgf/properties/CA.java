@@ -1,6 +1,6 @@
 package sgf.properties;
 
-import sgf.SetupProperty;
+import sgf.RootProperty;
 import sgf.types.ValueType;
 import sgf.types.ValueTypes;
 import sgf.types.SimpleText;
@@ -8,13 +8,9 @@ import sgf.types.SimpleText;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 15:32:13
- * To change this template use File | Settings | File Templates.
+ * Provides the used charset for SimpleText and Text type.
  */
-public class CA extends SetupProperty {
+public class CA extends RootProperty {
 
     private String encoding = null;
 

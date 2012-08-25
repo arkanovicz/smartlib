@@ -16,11 +16,8 @@ import util.GoUtils;
 import util.Lists;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 13:25:57
- * To change this template use File | Settings | File Templates.
+ * Writes the given text on the board. The text should be
+ * centered around the given point.
  */
 public class LB extends sgf.properties.LB {
 

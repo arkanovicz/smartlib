@@ -1,19 +1,16 @@
 package sgf.properties;
 
-import sgf.MoveProperty;
+import sgf.TimingProperty;
 import sgf.types.ValueType;
 import sgf.types.ValueTypes;
 
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 16:56:33
- * To change this template use File | Settings | File Templates.
+ * Number of white moves left (after the move of this node was
+ * played) to play in this byo-yomi period.
  */
-public class OW extends MoveProperty {
+public class OW extends TimingProperty {
 
     int moves = 0;
 

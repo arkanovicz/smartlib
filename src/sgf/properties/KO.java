@@ -7,11 +7,9 @@ import sgf.types.ValueTypes;
 import java.util.List;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 9 déc. 2007
- * Time: 13:28:19
- * To change this template use File | Settings | File Templates.
+ * Execute a given move (B or W) even it's illegal.
+ * A KO property without a black or white move within
+ * the same node is illegal.
  */
 public class KO extends MoveProperty {
 

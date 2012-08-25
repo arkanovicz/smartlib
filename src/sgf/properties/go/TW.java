@@ -4,7 +4,7 @@ import sgf.types.ValueType;
 import sgf.types.ValueEList;
 import sgf.types.go.GoValueTypes;
 import sgf.types.go.Point;
-import sgf.Property;
+import sgf.MarkupProperty;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import util.Lists;
  * Time: 11:48:29
  * To change this template use File | Settings | File Templates.
  */
-public class TW extends Property {
+public class TW extends MarkupProperty {
 
     private List<Point> points = new ArrayList<Point>();
 

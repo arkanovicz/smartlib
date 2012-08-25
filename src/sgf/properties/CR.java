@@ -1,13 +1,9 @@
 package sgf.properties;
 
-import sgf.Property;
+import sgf.MarkupProperty;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 13:21:22
- * To change this template use File | Settings | File Templates.
+ * Marks the given points with a circle.
  */
-public abstract class CR extends Property {
+public abstract class CR extends MarkupProperty {
 }

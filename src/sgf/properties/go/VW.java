@@ -15,11 +15,7 @@ import util.GoUtils;
 import util.Lists;
 
 /**
- * Created by IntelliJ IDEA.
- * User: claude
- * Date: 10 déc. 2007
- * Time: 11:48:29
- * To change this template use File | Settings | File Templates.
+ * View only part of the board.
  */
 public class VW extends sgf.properties.VW {
 
