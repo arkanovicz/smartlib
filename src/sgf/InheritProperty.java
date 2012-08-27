@@ -11,4 +11,6 @@ public abstract class InheritProperty extends Property {
     public PropertyType getPropertyType() {
         return PropertyType.inherit;
     }
+
+    public boolean doesPersist() { return true; }
 }

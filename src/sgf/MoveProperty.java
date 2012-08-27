@@ -14,4 +14,6 @@ public abstract class MoveProperty extends Property {
     public PropertyType getPropertyType() {
         return PropertyType.move;
     }
+
+    public boolean doesPersist() { return true; }
 }

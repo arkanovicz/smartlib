@@ -14,4 +14,7 @@ public abstract class RootProperty extends Property {
     public PropertyType getPropertyType() {
         return PropertyType.root;
     }
+
+    public boolean doesPersist() { return true; }
+
 }

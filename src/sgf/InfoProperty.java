@@ -12,4 +12,6 @@ public abstract class InfoProperty extends Property {
     public PropertyType getPropertyType() {
         return PropertyType.info;
     }
+
+    public boolean doesPersist() { return true; }
 }

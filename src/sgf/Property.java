@@ -50,6 +50,8 @@ public abstract class Property {
 
     public abstract boolean addValue(List<String> value);
 
+    public abstract boolean doesPersist();
+
     public Object getSGFValue() {
         return null;
     }
