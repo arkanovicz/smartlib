@@ -157,6 +157,10 @@ Logger.log(ie);
         return properties.values();
     }
 
+    public Map<String,Property> getPropertyMap() {
+        return properties;
+    }
+
     public int getChildrenCount() {
         return children == null ? 0 : children.size();
     }
