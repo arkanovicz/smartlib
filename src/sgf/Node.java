@@ -2,8 +2,10 @@ package sgf;
 
 import sgf.types.ValueType;
 
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.TreeMap;
@@ -17,7 +19,10 @@ public class Node {
     protected LinkedList<Node> children = null;
     protected Map<String,Property> properties = new TreeMap<String,Property>();
 
+  // TODO - all those properties cannot be cached if the tree is updated
     protected int branchDepth = -1;
+    protected int yOffset = -1;
+    protected int linearDepth = -1;
 
 //    private PropertyType nodeType = PropertyType.none;
 
@@ -219,4 +224,89 @@ Logger.log(ie);
       return branchDepth;
     }
   
+    public int getYOffset()
+    {
+      if(yOffset == -1)
+      {
+        if(children == null) return 0;
+        Node n = this;
+        Node stopNode = getParent(); // may be null
+        Deque<Integer> stack = new LinkedList<Integer>();
+        boolean movingDown = true;
+        List<Integer> offsets = new ArrayList<Integer>();
+        int depth = 0;
+        int currentOffset = 0;
+        while(true)
+        {
+          if(movingDown)
+          {
+            if(offsets.size() < depth + 1) offsets.add(currentOffset);
+            else
+            {
+              int previousOffset = offsets.get(depth);
+              currentOffset = Math.max(currentOffset,previousOffset + 1);
+              offsets.set(depth,currentOffset);
+            }
+            if(n.getChildrenCount() > 0)
+            {
+              stack.addLast(0);
+              n = n.getChild(0);
+              depth++;
+            }
+            else
+            {
+              n.branchDepth = 1;
+              movingDown = false;
+            }
+          }
+          else
+          {
+            n.yOffset = currentOffset;
+            n = n.getParent();
+            depth--;
+            if(n == stopNode) break;
+            int children = n.getChildrenCount();
+            int child = stack.removeLast() + 1;
+            if(child == children)
+            {
+              currentOffset = n.getChild(0).yOffset;
+              if(currentOffset > offsets.get(depth)) offsets.set(depth,currentOffset);
+            }
+            else
+            {
+              stack.addLast(child);
+              n = n.getChild(child);
+              depth++;
+              currentOffset += 1;
+              movingDown = true;
+            }
+          }
+        }
+      }
+      return yOffset;
+    }
+
+  public int getLinearDepth()
+  {
+    if(linearDepth == -1)
+    {
+      Node n = this;
+      int ld = 1;
+      while(n.getChildrenCount() > 0)
+      {
+        n = n.getChild(0);
+        ld ++;
+      }
+      linearDepth = ld;
+      ld = 1;
+      while(n != this)
+      {
+        n.linearDepth = ld;
+        n = n.getParent();
+        ld++;
+      }
+    }
+    return linearDepth;
+  }
+
 }
