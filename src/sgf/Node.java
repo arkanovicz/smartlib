@@ -2,6 +2,7 @@ package sgf;
 
 import sgf.types.ValueType;
 
+import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.HashMap;
@@ -15,6 +16,8 @@ public class Node {
 
     protected LinkedList<Node> children = null;
     protected Map<String,Property> properties = new TreeMap<String,Property>();
+
+    protected int branchDepth = -1;
 
 //    private PropertyType nodeType = PropertyType.none;
 
@@ -165,9 +168,55 @@ Logger.log(ie);
         return children == null ? 0 : children.size();
     }
 
-  public Node getChild(int index)
-  {
-    return children.get(index);
-  }
+    public Node getChild(int index)
+    {
+      return children.get(index);
+    }
+
+    public int getBranchDepth()
+    {
+      if(branchDepth == -1)
+      {
+        if(children == null) return 1;
+        Node n = this;
+        Deque<Integer> stack = new LinkedList<Integer>();
+        boolean movingDown = true;
+        while(true)
+        {
+          if(movingDown)
+          {
+            if(n.getChildrenCount() > 0)
+            {
+              stack.addLast(0);
+              n = n.getChild(0);
+            }
+            else
+            {
+              n.branchDepth = 1;
+              movingDown = false;
+            }
+          }
+          else
+          {
+            int childDepth = n.branchDepth;
+            n = n.getParent();
+            n.branchDepth = Math.max(n.branchDepth, childDepth + 1);
+            int children = n.getChildrenCount();
+            int child = stack.removeLast() + 1;
+            if(child == children)
+            {
+              if(n == this) break;
+            }
+            else
+            {
+              stack.addLast(child);
+              n = n.getChild(child);
+              movingDown = true;
+            }
+          }
+        }
+      }
+      return branchDepth;
+    }
   
 }

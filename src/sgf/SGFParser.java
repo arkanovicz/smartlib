@@ -318,6 +318,7 @@ Logger.debug(dbg);
             Logger.setLogLevel(Logger.DEBUG_ID);
             GameCollection collection = new SGFParser(GameType.Go).parseSGF(new File(args[0]));
             System.out.println("GameCollection="+collection);
+            System.out.println("Root depth (0) = "+collection.get(0).getBranchDepth());
         } catch(IOException ioe) {
             ioe.printStackTrace();
         }
