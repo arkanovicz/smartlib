@@ -337,6 +337,6 @@ Logger.debug(dbg);
 
     public static void warn(String msg) {
         Logger.warn(msg);
-        logger.println("warning: "+msg);
+        if(logger != null) logger.println("warning: "+msg);
     }
 }
