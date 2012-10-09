@@ -47,4 +47,9 @@ public class Point implements sgf.types.Point {
         return ""+ GoUtils.charCoord(col)+GoUtils.charCoord(row);
     }
 
+    public boolean equal(Object other)
+    {
+        if(other == null || !(other instanceof Point)) return false;
+        return col == ((Point)other).getCol() && row == ((Point)other).getRow();
+    }
 }

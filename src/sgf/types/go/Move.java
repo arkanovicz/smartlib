@@ -14,4 +14,9 @@ public class Move extends Point implements sgf.types.Move {
         return "([a-zA-Z][a-zA-Z])?";
     }
 
+    public String toString() {
+        if(this.equals(GoValueTypes.PASS)) return "";
+        else return super.toString();
+    }
+
 }
