@@ -3,6 +3,7 @@ package sgf;
 import sgf.GameCollection;
 import sgf.Node;
 import sgf.Property;
+import sgf.types.Text;
 import sgf.types.ValueType;
 import sgf.types.ValueEList;
 import sgf.types.ValueList;
@@ -281,7 +282,7 @@ Logger.debug(dbg);
 //if(target.getId().equals("TR")){
 //Logger.debug("@@@@ property "+target.getId()+": using pattern "+valuePattern+" for value"+value);
 //}
-        Matcher matcher = valuePattern.matcher(value);
+        Matcher matcher = valuePattern.matcher(valueType instanceof Text?value:value.replace("\n",""));
         boolean success = false;
 //Logger.debug("property: matching "+valuePattern.pattern()+" against "+limit(value,80));
         while(matcher.find()) {
