@@ -30,7 +30,7 @@ public class GM extends RootProperty {
     }
 
     public Object getSGFValue() {
-        return gameType;
+        return gameType.getType();
     }
 
     public GameType getGameType() {
