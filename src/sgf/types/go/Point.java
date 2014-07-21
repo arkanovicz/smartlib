@@ -43,6 +43,10 @@ public class Point implements sgf.types.Point {
         return "([a-zA-Z][a-zA-Z])";
     }
 
+    public String getName() {
+        return "Point";
+    }
+
     public String toString() {
         return ""+ GoUtils.charCoord(col)+GoUtils.charCoord(row);
     }

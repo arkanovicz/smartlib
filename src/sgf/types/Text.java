@@ -10,6 +10,10 @@ public class Text implements ValueType {
         return "((?>\\\\.|[^\\]\\\\])*)";
     }
 
+    public String getName() {
+        return "Text";
+    }
+
     public static String escape(String input) {
         return input.replaceAll("([\\]\\\\])","\\\\$1");
     }

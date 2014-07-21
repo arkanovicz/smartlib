@@ -8,6 +8,10 @@ public class SimpleText implements ValueType {
         return "((?:[^\\]\\\\]|(?:\\\\.))*)";
     }
 
+    public String getName() {
+        return "SimpleText";
+    }
+
     public static String escape(String input) {
         return input.replaceAll("([\\]\\\\])","\\\\$1");
     }

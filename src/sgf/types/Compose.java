@@ -15,4 +15,8 @@ public class Compose<L extends ValueType,R extends ValueType> implements ValueTy
     public String getPattern() {
         return left.getPattern()+":"+right.getPattern();
     }
+
+    public String getName() {
+        return "Compose<" + left.getName() + "," + right.getName() + ">";
+    }
 }

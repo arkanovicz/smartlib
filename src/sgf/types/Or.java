@@ -30,4 +30,7 @@ public class Or<L extends ValueType,R extends ValueType> implements ValueType {
       }
     }
 
+    public String getName() {
+      return "Or<" + left.getName() + "," + right.getName() + ">";
+    }
 }

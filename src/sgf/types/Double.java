@@ -8,7 +8,12 @@ package sgf.types;
  * To change this template use File | Settings | File Templates.
  */
 public class Double implements ValueType {
+
     public String getPattern() {
         return "(1|2)";
+    }
+
+    public String getName() {
+        return "Double";
     }
 }

@@ -11,4 +11,8 @@ public class Color implements ValueType {
     public String getPattern() {
         return "(b|B|w|W)";
     }
+
+    public String getName() {
+        return "Color";
+    }
 }

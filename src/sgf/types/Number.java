@@ -8,8 +8,12 @@ package sgf.types;
  * To change this template use File | Settings | File Templates.
  */
 public class Number implements ValueType {
+
     public String getPattern() {
         return "((?:\\+|-)?\\d+)";
     }
 
+    public String getName() {
+        return "Number";
+    }
 }

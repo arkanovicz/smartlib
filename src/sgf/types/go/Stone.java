@@ -12,6 +12,10 @@ public class Stone extends Point implements sgf.types.Stone {
     public Stone() {
     }
 
+    public String getName() {
+        return "Stone";
+    }
+
     public Stone(int col,int row) {
         super(col,row);
     }

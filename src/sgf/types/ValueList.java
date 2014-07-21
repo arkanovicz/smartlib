@@ -22,4 +22,8 @@ public class ValueList<T extends ValueType> implements ValueType {
             return component.getPattern();
         }
     }
+
+    public String getName() {
+      return "ValueList<" + component.getName() + ">";
+    }
 }

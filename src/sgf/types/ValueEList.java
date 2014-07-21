@@ -23,4 +23,8 @@ public class ValueEList<T extends ValueType> implements ValueType {
             return "(?:"+component.getPattern()+")?";
         }
     }
+
+    public String getName() {
+      return "ValueEList<" + component.getName() + ">";
+    }
 }

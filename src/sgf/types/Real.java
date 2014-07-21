@@ -8,7 +8,12 @@ package sgf.types;
  * To change this template use File | Settings | File Templates.
  */
 public class Real implements ValueType {
+
     public String getPattern() {
         return "((?:\\+|-)?\\d+(?:\\.\\d+)?)";
+    }
+
+    public String getName() {
+        return "Real";
     }
 }

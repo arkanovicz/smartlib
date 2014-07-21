@@ -8,8 +8,12 @@ package sgf.types;
  * To change this template use File | Settings | File Templates.
  */
 public class None implements ValueType {
+
     public String getPattern() {
         return "";
     }
 
+    public String getName() {
+        return "None";
+    }
 }
