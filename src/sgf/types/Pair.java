@@ -38,4 +38,11 @@ public class Pair<C extends ValueType> {
     public String toString() {
         return String.valueOf(first)+":"+String.valueOf(second);
     }
+
+    public boolean equals(Object other)
+    {
+        if (!(other instanceof Pair)) return false;
+        Pair<C> otherPair = (Pair<C>)other;
+        return first.equals(otherPair.first) && second.equals(otherPair.second);
+    }
 }

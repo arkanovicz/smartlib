@@ -29,6 +29,12 @@ public class TR extends sgf.properties.TR {
         return GoUtils.populatePoints(points,value.get(0),value.size() == 1 ? null : value.get(1));
     }
 
+    public int removeValue(List<String> value) {
+        if(value.size() != 1 && value.size() != 2) return -1;
+        GoUtils.clearPoints(points,value.get(0),value.size() == 1 ? null : value.get(1));
+        return points.size();
+    }
+
     public Object getSGFValue() {
         return Lists.join(points,"][");
     }

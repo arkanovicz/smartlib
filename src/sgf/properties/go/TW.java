@@ -33,6 +33,11 @@ public class TW extends MarkupProperty {
         return GoUtils.addEListValue(value,points,Point.class);
     }
 
+    public int removeValue(List<String> value) {
+        GoUtils.removeEListValue(value,points,Point.class);
+        return points.size();
+    }
+
     public Object getSGFValue() {
         return Lists.join(points,"][");
     }

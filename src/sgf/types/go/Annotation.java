@@ -32,4 +32,11 @@ public class Annotation {
     public String toString() {
         return String.valueOf(point)+":"+ ComposedSimpleText.escape(text);
     }
+
+    public boolean equals(Object other)
+    {
+        if (!(other instanceof Annotation)) return false;
+        Annotation otherAnn = (Annotation)other;
+        return otherAnn.getPoint().equals(point) && otherAnn.getText().equals(text);
+    }
 }

@@ -46,6 +46,21 @@ public class GoUtils {
         return true;
     }
 
+    public static boolean clearPoints(List<Point>list,String value,String value2) {
+        Point point = new Point(GoUtils.parseCoord(value.charAt(0)),GoUtils.parseCoord(value.charAt(1)));
+        if(value2 != null) {
+            Point p2 = new Point(GoUtils.parseCoord(value2.charAt(0)),GoUtils.parseCoord(value2.charAt(1)));
+            for(int col=point.getCol();col<=p2.getCol();col++) {
+                for(int row = point.getRow();row<=p2.getRow();row++) {
+                    list.remove(new Point(col, row));
+                }
+            }
+        } else {
+            list.remove(point);
+        }
+        return true;
+    }
+    
     private static <T extends Point> T makeValue(Class<T> clazz,int col,int row) {
         try {
             T value = clazz.newInstance();
@@ -71,6 +86,25 @@ public class GoUtils {
             for(int col = start.getCol() ; col <= end.getCol() ; col++) {
                 for (int row = start.getRow() ; row <= end.getRow() ; row++) {
                     points.add(makeValue(type,col,row));
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static <T extends Point> boolean removeEListValue(List<String> value,List<T> points,Class<T> type) {
+        if(value.size() == 1) {
+            T point = makeValue(type,GoUtils.parseCoord(value.get(0).charAt(0)),GoUtils.parseCoord(value.get(0).charAt(1)));
+            points.remove(point);
+            return true;
+        } else if (value.size() == 2) {
+            T start = makeValue(type,GoUtils.parseCoord(value.get(0).charAt(0)),GoUtils.parseCoord(value.get(0).charAt(1)));
+            T end = makeValue(type,GoUtils.parseCoord(value.get(1).charAt(0)),GoUtils.parseCoord(value.get(1).charAt(1)));
+            for(int col = start.getCol() ; col <= end.getCol() ; col++) {
+                for (int row = start.getRow() ; row <= end.getRow() ; row++) {
+                    points.remove(makeValue(type,col,row));
                 }
             }
             return true;

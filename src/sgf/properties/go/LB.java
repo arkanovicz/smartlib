@@ -46,6 +46,15 @@ public class LB extends sgf.properties.LB {
         return true;
     }
 
+    public int removeValue(List<String> value) {
+        if(value.size() != 2) return -1;
+        Point point = new Point(GoUtils.parseCoord(value.get(0).charAt(0)),GoUtils.parseCoord(value.get(0).charAt(1)));
+        String text = ComposedSimpleText.unescape(value.get(1));
+        annotations.remove(new Annotation(point,text));
+        return annotations.size();
+    }
+
+    
     public int getSize() {
         return annotations.size();
     }

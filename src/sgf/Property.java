@@ -50,6 +50,11 @@ public abstract class Property {
 
     public abstract boolean addValue(List<String> value);
 
+    public int removeValue(List<String> value)
+    {
+        return -1;
+    }
+    
     public abstract boolean doesPersist();
 
     public Object getSGFValue() {

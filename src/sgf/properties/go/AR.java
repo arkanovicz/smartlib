@@ -34,6 +34,14 @@ public class AR extends sgf.properties.AR {
         return true;
     }
 
+    public int removeValue(List<String> value) {
+        if(value.size() != 2) return -1;
+        Point start = new Point(GoUtils.parseCoord(value.get(0).charAt(0)),GoUtils.parseCoord(value.get(0).charAt(1)));
+        Point end = new Point(GoUtils.parseCoord(value.get(1).charAt(0)),GoUtils.parseCoord(value.get(1).charAt(1)));
+        arrows.remove(new Pair(start,end));
+        return arrows.size();
+    }
+
     public Object getSGFValue() {
         return Lists.join(arrows,"][");
     }

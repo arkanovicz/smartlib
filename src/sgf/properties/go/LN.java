@@ -34,6 +34,14 @@ public class LN extends sgf.properties.LN {
         return true;
     }
 
+    public int removeValue(List<String> value) {
+        if(value.size() != 2) return -1;
+        Point start = new Point(GoUtils.parseCoord(value.get(0).charAt(0)),GoUtils.parseCoord(value.get(0).charAt(1)));
+        Point end = new Point(GoUtils.parseCoord(value.get(1).charAt(0)),GoUtils.parseCoord(value.get(1).charAt(1)));
+        lines.remove(new Pair(start,end));
+        return lines.size();
+    }
+
     public Object getValue() {
         return Lists.join(lines,"][");
     }

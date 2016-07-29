@@ -28,6 +28,11 @@ public class AW extends sgf.properties.AW {
         return GoUtils.addEListValue(value,stones,Stone.class);
     }
 
+    public int removeValue(List<String> value) {
+        GoUtils.removeEListValue(value,stones,Stone.class);
+        return stones.size();
+    }
+    
     public Object getSGFValue() {
         return Lists.join(stones,"][");
     }
