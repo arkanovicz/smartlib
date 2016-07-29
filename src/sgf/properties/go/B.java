@@ -22,10 +22,12 @@ public class B extends sgf.properties.B {
     public boolean addValue(List<String> value) {
         if(value.size() > 1) return false;
         if (value.size() == 1) {
-            move = new Move(GoUtils.parseCoord(value.get(0).charAt(0)),GoUtils.parseCoord(value.get(0).charAt(1)));
+            String coords = value.get(0);
             // TODO tt==pass only for 19x19 (?)
-            if(move.getCol()==20 && move.getRow()==20) {
+            if (coords.length() == 0 || coords.charAt(0) == 't' && coords.charAt(1) == 't') {
                 move = GoValueTypes.PASS;
+            } else {
+                move = new Move(GoUtils.parseCoord(coords.charAt(0)),GoUtils.parseCoord(coords.charAt(1)));
             }
         } else {
             move = GoValueTypes.PASS;
