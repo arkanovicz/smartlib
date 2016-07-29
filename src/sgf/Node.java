@@ -173,6 +173,10 @@ Logger.log(ie);
         return children == null ? 0 : children.size();
     }
 
+    public List<Node> getChildren() {
+        return children;
+    }
+
     public Node getChild(int index)
     {
       return children.get(index);
