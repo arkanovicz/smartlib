@@ -225,6 +225,7 @@ Logger.log2Stderr();
             }
             else if (c == '\\')
             {
+              value += c;
               escaped = true;
             }
             else
