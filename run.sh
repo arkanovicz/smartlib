@@ -1,3 +1,3 @@
 #!/bin/sh
 
-java -cp smartlib.jar sgf.SGFParser $*
+java -cp target/smartlib-1.0.jar sgf.SGFParser $*
