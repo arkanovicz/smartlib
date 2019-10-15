@@ -86,7 +86,7 @@ public class Logger
     }
 
     /** whether to display timestamps.
-     * @param timestamps
+     * @param timestamps boolean
      */
     public static void setDisplayTimestamps(boolean timestamps) {
         displayTimestamps = timestamps;
@@ -322,6 +322,9 @@ public class Logger
     }
 
     /** log to file.
+     * @param file file
+     * @throws FileNotFoundException when file is not found
+     * @throws IOException on other i/o errors
      */
     static public void log2File(String file) throws FileNotFoundException,IOException {
         log = new PrintWriter(new FileWriter(file,true));
@@ -354,6 +357,7 @@ public class Logger
     }
 
     /** queries the initialized state.
+     * @return initialized state
      *
      */
     static public boolean isInitialized() {

@@ -3,7 +3,7 @@ package com.republicate.smartlib.util;
 import java.text.CharacterIterator;
 
 /**
- * mostly copied & pasted from sun StringCharacterIterator (why final ?!) to add getters
+ * mostly copied &amp; pasted from sun StringCharacterIterator (why final ?!) to add getters
  */
 public class TalkativeCharacterIterator implements CharacterIterator
 {
@@ -15,6 +15,7 @@ public class TalkativeCharacterIterator implements CharacterIterator
 
     /**
      * Constructs an iterator with an initial index of 0.
+     * @param text input text
      */
     public TalkativeCharacterIterator(String text)
     {
@@ -234,12 +235,16 @@ public class TalkativeCharacterIterator implements CharacterIterator
 
     /**
      *  tell me your secrets
+     * @return text
      */
-
      public String getText() {
         return text;
     }
 
+    /**
+     * tell me more
+     * @return position
+     */
     public int getPosition() {
         return pos;
     }    
