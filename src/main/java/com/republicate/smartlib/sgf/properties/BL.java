@@ -1,0 +1,37 @@
+package com.republicate.smartlib.sgf.properties;
+
+import com.republicate.smartlib.sgf.TimingProperty;
+import com.republicate.smartlib.sgf.types.ValueType;
+import com.republicate.smartlib.sgf.types.ValueTypes;
+
+import java.util.List;
+
+/**
+ * Time left for black, after the move was made.
+ */
+public class BL extends TimingProperty {
+
+    double seconds = 0;
+
+    public ValueType getValueType() {
+        return ValueTypes.REAL;
+    }
+
+    public boolean addValue(List<String> value) {
+        if(value.size() != 1) return false;
+        try {
+            seconds = Double.parseDouble(value.get(0));
+            return true;
+        } catch(NumberFormatException nfe) {
+            return false;
+        }
+    }
+
+    public Object getSGFValue() {
+        return seconds;
+    }
+
+    public double getTimeLeft() {
+        return seconds;
+    }
+}
