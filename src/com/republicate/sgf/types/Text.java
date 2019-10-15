@@ -1,7 +1,5 @@
 package com.republicate.sgf.types;
 
-import com.republicate.util.Logger;
-
 /**
  */
 public class Text implements ValueType {

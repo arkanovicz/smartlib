@@ -1,7 +1,5 @@
 package com.republicate.sgf;
 
-import com.republicate.sgf.Property;
-
 /**
  * Created by IntelliJ IDEA.
  * User: claude

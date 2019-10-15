@@ -1,8 +1,5 @@
 package com.republicate.sgf;
 
-import com.republicate.sgf.GameCollection;
-import com.republicate.sgf.Node;
-import com.republicate.sgf.Property;
 import com.republicate.sgf.types.Text;
 import com.republicate.sgf.types.ValueType;
 import com.republicate.sgf.types.ValueEList;
