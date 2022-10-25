@@ -26,7 +26,7 @@ under the License.
     </parent>
     <groupId>com.republicate</groupId>
     <artifactId>smartlib</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>SGF format parser</description>
@@ -48,14 +48,14 @@ under the License.
             <name>Claude Brisson</name>
             <email>claude@renegat.net</email>
             <organization>republicate.com</organization>
-            <organizationUrl>http://republicate.com</organizationUrl>
+            <organizationUrl>https://republicate.com</organizationUrl>
         </developer>
     </developers>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <junit.version>4.12</junit.version>
-        <slf4j.version>1.7.28</slf4j.version>
+        <junit.version>4.13.2</junit.version>
+        <slf4j.version>1.7.36</slf4j.version>
         <servlet.version>3.0.1</servlet.version>
     </properties>
     <dependencies>
@@ -79,7 +79,7 @@ under the License.
         <dependency>
             <groupId>commons-net</groupId>
             <artifactId>commons-net</artifactId>
-            <version>3.6</version>
+            <version>3.8.0</version>
         </dependency>
     </dependencies>
     <distributionManagement>
@@ -94,7 +94,7 @@ under the License.
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
+                <version>3.10.1</version>
                 <configuration>
                     <showDeprecation>true</showDeprecation>
                     <showWarning>true</showWarning>
@@ -105,7 +105,7 @@ under the License.
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>2.4.1</version>
+                <version>3.4.0</version>
                 <executions>
                     <execution>
                         <id>shade</id>
@@ -136,7 +136,7 @@ under the License.
 		    <plugin>
 			    <groupId>org.sonatype.plugins</groupId>
 			    <artifactId>nexus-staging-maven-plugin</artifactId>
-			    <version>1.6.7</version>
+			    <version>1.6.13</version>
 			    <extensions>true</extensions>
 			    <configuration>
 				    <serverId>ossrh</serverId>
@@ -147,10 +147,10 @@ under the License.
 		    <plugin>
 			    <groupId>org.apache.maven.plugins</groupId>
 			    <artifactId>maven-source-plugin</artifactId>
-			    <version>2.4</version>
-                <configuration>
-                    <includePom>false</includePom>
-                </configuration>
+			    <version>3.2.1</version>
+          <configuration>
+              <includePom>false</includePom>
+          </configuration>
 			    <executions>
 				    <execution>
 					    <id>attach-sources</id>
@@ -163,7 +163,7 @@ under the License.
 		    <plugin>
 			    <groupId>org.apache.maven.plugins</groupId>
 			    <artifactId>maven-javadoc-plugin</artifactId>
-			    <version>2.10.3</version>
+			    <version>3.4.0</version>
 			    <executions>
 				    <execution>
 					    <id>attach-javadocs</id>
@@ -183,7 +183,7 @@ under the License.
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
+                        <version>3.0.1</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
